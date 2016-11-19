@@ -13,6 +13,15 @@
 
 完成的情况似乎和10.11.6没什么区别，但是不会再随机卡在开机Logo画面了（弃用AppleALC，但还是感谢它的Binary Patches）。
 
+## 各资源目录的作用
+
+- `ALC298(3266)-Info`，声卡相关的节点，LayoutID，ConfigData信息，有需要可以自己拿来用
+- `CLOVER-Install`，完整的Clover配置，用于安装系统时，也可以用于安装后，差别是config.plist里去掉了安装系统时所需的nvme的patches
+- `Clover-Finish`，安装完系统后采用的文件夹，如上所述，只有config.plist稍有不同，另外附上了10.12.1的nvme破解驱动（即打过binary patch后的）
+- `DSDT-HotPatches`，Clover的DSDT/SSDT热补丁dsl源码，可以从RehabMan主页得到。
+- `MoreKexts-LE`，安装好系统后再安装的第三方驱动。
+
+
 ## 开始
 
 #### 1. 系统镜像
