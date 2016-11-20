@@ -18,7 +18,7 @@
 - `ALC298(3266)-Info`，声卡相关的节点，LayoutID，ConfigData信息，有需要可以自己拿来用
 - `CLOVER-Install`，完整的Clover配置，用于安装系统时，也可以用于安装后，差别是config.plist里去掉了安装系统时所需的nvme的patches
 - `Clover-Finish`，安装完系统后采用的文件夹，如上所述，只有config.plist稍有不同，另外附上了10.12.1的nvme破解驱动（即打过binary patch后的）
-- `DSDT-HotPatches`，Clover的DSDT/SSDT热补丁dsl源码，可以从RehabMan主页得到。
+- `DSDT-HotPatches`，Clover的DSDT/SSDT热补丁dsl源码，可以从[RehabMan主页](https://github.com/RehabMan/OS-X-Clover-Laptop-Config/tree/master/hotpatch)得到。
 - `MoreKexts-LE`，安装好系统后再安装的第三方驱动。
 
 
@@ -53,9 +53,11 @@
 
 - `cd 鼠标拖LE文件夹过来`
 - `sudo cp -r * /Library/Extensions/`
+- `sudo rm -rf /System/Library/Caches/com.apple.kext.caches/Startup/kernelcache`
+- `sudo rm -rf /System/Library/PrelinkedKernels/prelinkedkernel`
 - `sudo touch /System/Library/Extensions && sudo kextcache -u /`，
 	- 正常情况执行的时候是会显示LE文件夹里那些驱动的名字，30秒左右完成。
-	- 如果是提示`Lock acquired; proceeding`什么的，等到再次提示执行命令的时候重复执行一次即可。
+	- 如果是提示`Lock acquired; proceeding`什么的，等到再次提示执行命令的时候重复执行一次上条命令即可。
 - `sudo spctl --master-disable`，这个是让系统可以安装任何来源的APP
 
 还有个VoodooPSController文件夹，里面有个文件`_install.command`，双击运行，输入密码，完成后关闭。
@@ -77,10 +79,12 @@
 继续看回终端：
 
 - `sudo cp -r HackrNVMeFamily-10_12_1.kext /Library/Extensions/`
-- `sudo mv /System/Library/Extensions/IONVMeFamily.kext /System/Library/Extensions/NVME.bak`，这个意思是，把系统的NVME驱动改名，下次就不会加载了。
+- `sudo mv /System/Library/Extensions/IONVMeFamily.kext /System/Library/Extensions/NVME.bak`，这个意思是，把系统的NVME驱动改名，下次就不会加载了。接下来重建缓存：
+- `sudo rm -rf /System/Library/Caches/com.apple.kext.caches/Startup/kernelcache`
+- `sudo rm -rf /System/Library/PrelinkedKernels/prelinkedkernel`
 - `sudo touch /System/Library/Extensions && sudo kextcache -u /`
 
-如果一切顺利，你会在命令行看见列出了你安装过的IntelBacklight、NullEthernet、`HackrNVMeFamily-10_12_1`、aDummy.kext，否则等1分钟后再执行一次上述命令。
+如果一切顺利，你会在命令行看见列出了你安装过的IntelBacklight、NullEthernet、`HackrNVMeFamily-10_12_1`、aDummy.kext，否则等1分钟后再执行一次上述重建命令。
 
 补丁打完了，现在要把EFI分区里Clover的config.plist里面的所有关于IONVMeFamily的补丁删除，请自行用Clover Configurator挂载分区并操作。实在懒的话，可以用我GitHub的Clover-Finish文件夹里的plist覆盖你的。
 
