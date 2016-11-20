@@ -44,6 +44,8 @@
 
 用Clover引导安装你写入了U盘的镜像系统，完成并进入系统
 
+> 据[@shiweifu](https://github.com/shiweifu)同学的反映，引导时可能会遇到panic并瞬间重启，可尝试在config.plist的SMBIOS [注入内存信息](http://bbs.pcbeta.com/viewthread-1690183-1-1.html)
+
 #### 4. 安装其他驱动
 
 把我提供的MoreKext-10.12.1.zip解压到桌面，里面有**`LE`**和**`VoodooPSController`**文件夹  
