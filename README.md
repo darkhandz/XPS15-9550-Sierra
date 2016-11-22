@@ -1,7 +1,7 @@
 
 ## 前言
 
-> 这里讨论的配置是：XPS15-9550 i7-6700HQ HD530 8G-DDR4 1080P THNSN5256GPU7-NVMe-256G DW1830(无线网卡ac+蓝牙4.1LE)  Realtek ALC298(10EC0298)
+> 这里讨论的配置是：XPS15-9550 i7-6700HQ HD530 8G-DDR4 1080P THNSN5256GPU7-NVMe-256G DW1830(无线网卡ac+蓝牙4.1LE)  Realtek ALC298 (codec:10EC0298,layout-id:13)
 
 之前在论坛10.11版发过一篇教程，写得算是详细了，但是苦于论坛编辑器各种坑，内容总是不能完整 ([GitHub完整观摩地址](https://github.com/darkhandz/XPS15-9550-OSX))。所以这次写10.12.1的，就不打算长篇大论手把手什么的了，假设各位童鞋都是有经验的，关键的地方点到为止即可。
 
@@ -17,8 +17,10 @@
 
 - `ALC298(3266)-Info`，声卡相关的节点，LayoutID，ConfigData信息，有需要可以自己拿来用
 - `CLOVER-Install`，完整的Clover配置，用于安装系统时，也可以用于安装后，差别是config.plist里去掉了安装系统时所需的nvme的patches
+	- `SSDT.aml`不适合i5，请自行学习生成CPU变频的方法。
 - `Clover-Finish`，安装完系统后采用的文件夹，如上所述，只有config.plist稍有不同，另外附上了10.12.1的nvme破解驱动（即打过binary patch后的）
-- `DSDT-HotPatches`，Clover的DSDT/SSDT热补丁dsl源码，可以从[RehabMan主页](https://github.com/RehabMan/OS-X-Clover-Laptop-Config/tree/master/hotpatch)得到。`SSDT-NVMe.aml`不可以直接使用，请按教程处理过才用，或者干脆不用！
+- `DSDT-HotPatches`，Clover的DSDT/SSDT热补丁dsl源码，可以从[RehabMan主页](https://github.com/RehabMan/OS-X-Clover-Laptop-Config/tree/master/hotpatch)得到。
+	- `SSDT-NVMe.dsl`不可以直接使用，请按下面NVMe教程处理过才用，或者干脆不用！
 - `MoreKexts-LE`，安装好系统后再安装的第三方驱动。
 
 
@@ -173,13 +175,14 @@ sudo codesign -f -s - /System/Library/Frameworks/IOKit.framework/Versions/Curren
 
 我们需要修改HackrNVMeFamily*.kext的IOPCIClassMatch的值为我们的非常规class-code：`0x0108ff00&0xFFFFFF00`。
 
-如果你是用文本编辑器改plist的话，改成这样：
+- 如果你是用文本编辑器改plist的话，改成这样：
 
-	<key>IOPCIClassMatch</key>
-	<string>0x0108ff00&amp;0xFFFFFF00</string>
+		<key>IOPCIClassMatch</key>
+		<string>0x0108ff00&amp;0xFFFFFF00</string>
 
-高端点，用Xcode改的话：
-![](./snapshot/2.png)
+- 高端点，用Xcode改的话：
+
+	![](./snapshot/2.png)
 
 你可以把这种方法用于引导安装OSX或者用于安装好系统之后，它可以让你在系统升级之后依然能够使用HackrNVMeFamily*.kext来驱动，直到你想为新的原生NVMe驱动打破解补丁为止。
 
@@ -207,7 +210,7 @@ sudo codesign -f -s - /System/Library/Frameworks/IOKit.framework/Versions/Curren
 你可以看到950 Pro NVMe在PCI地址：02:00.00（设备：144d:a802，注意常规的NVMe class是：010802）
 
 因此，在`Devices/Arbitrary`里这样填：
-![](./snapshot/3.png)
+	![](./snapshot/3.png)
 
 可别忘了，当你启用了Devices/Arbitrary，**所有Clover自动化注入的行为都会被取消掉**（例如Graphics/Inject里的内容），因此，那些自动注入项都要你自己手动在Devices/Arbitrary或者ACPI再注入一次。
 
