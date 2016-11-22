@@ -1,7 +1,7 @@
 
 ## 前言
 
-> 这里讨论的配置是：XPS15-9550 i7-6700HQ HD530 8G-DDR4 1080P THNSN5256GPU7-NVMe-256G DW1830(无线网卡ac+蓝牙4.1LE)  Realtek ALC298(10EC0298), 4K请自行加两条命令。
+> 这里讨论的配置是：XPS15-9550 i7-6700HQ HD530 8G-DDR4 1080P THNSN5256GPU7-NVMe-256G DW1830(无线网卡ac+蓝牙4.1LE)  Realtek ALC298(10EC0298)
 
 之前在论坛10.11版发过一篇教程，写得算是详细了，但是苦于论坛编辑器各种坑，内容总是不能完整 ([GitHub完整观摩地址](https://github.com/darkhandz/XPS15-9550-OSX))。所以这次写10.12.1的，就不打算长篇大论手把手什么的了，假设各位童鞋都是有经验的，关键的地方点到为止即可。
 
@@ -18,7 +18,7 @@
 - `ALC298(3266)-Info`，声卡相关的节点，LayoutID，ConfigData信息，有需要可以自己拿来用
 - `CLOVER-Install`，完整的Clover配置，用于安装系统时，也可以用于安装后，差别是config.plist里去掉了安装系统时所需的nvme的patches
 - `Clover-Finish`，安装完系统后采用的文件夹，如上所述，只有config.plist稍有不同，另外附上了10.12.1的nvme破解驱动（即打过binary patch后的）
-- `DSDT-HotPatches`，Clover的DSDT/SSDT热补丁dsl源码，可以从[RehabMan主页](https://github.com/RehabMan/OS-X-Clover-Laptop-Config/tree/master/hotpatch)得到。
+- `DSDT-HotPatches`，Clover的DSDT/SSDT热补丁dsl源码，可以从[RehabMan主页](https://github.com/RehabMan/OS-X-Clover-Laptop-Config/tree/master/hotpatch)得到。`SSDT-NVMe.aml`不可以直接使用，请按教程处理过才用，或者干脆不用！
 - `MoreKexts-LE`，安装好系统后再安装的第三方驱动。
 
 
@@ -39,6 +39,20 @@
 - 如果你没有硬盘Clover，那就删除U盘EFI分区里面的EFI文件夹，用我的EFI文件夹代替。
 	- 不知道如何设置BIOS让U盘的Clover引导启动的话，参照我上一篇教程的BIOS设置部分。
 - 把我提供的MoreKext-10.12.1.zip复制到U盘安装系统的分区里（方便你安装系统后立刻可以访问）
+- 如果你是4K屏，打开config.plist，在Devices节点下增加一个：
+
+	```
+	<key>FakeID</key>
+	<dict>
+	    <key>IntelGFX</key>
+	    <string>0x12345678</string>
+	</dict>
+	```
+- 如果你是i5，config.plist里的`0x191b0000`改成`0x19160000`。
+- 如果你是i7+1080P，飘过。
+- 忘了说，我Clover采用的是3923版本。
+
+> 感谢 [@matri](https://github.com/matri)同学反映的4K分辨率问题，之前没留意写上来
 
 #### 3. 安装系统
 
@@ -62,7 +76,20 @@
 
 还有个VoodooPSController文件夹，里面有个文件`_install.command`，双击运行，输入密码，完成后关闭。
 
-#### 5. 给NVME驱动打补丁
+
+#### 5. 4K屏附加处理步骤（1080的自觉飘过吧）
+
+- 终端执行这两条命令：
+	
+```
+sudo perl -i.bak -pe 's|\xB8\x01\x00\x00\x00\xF6\xC1\x01\x0F\x85|\x33\xC0\x90\x90\x90\x90\x90\x90\x90\xE9|sg' /System/Library/Frameworks/IOKit.framework/Versions/Current/IOKit
+sudo codesign -f -s - /System/Library/Frameworks/IOKit.framework/Versions/Current/IOKit
+```
+	
+- 然后把config.plist的Devices下的FakeID整个删除（如果是用Clover Configurator配置，把IntelGFX框清空）。
+
+
+#### 6. 给NVME驱动打补丁
 
 > RehabMan大神在[NVME-patch的github主页](https://github.com/RehabMan/patch-nvme)强调过，用Clover给Kext驱动动态打补丁还是有点危险的（特指nvme驱动的情况下），如果你的OSX系统更新了，原生的NVME驱动随之更新，然后Clover打补丁的时候不一定能完全匹配到所有补丁（因为补丁是有版本针对性的），造成“部分补丁成功”的情况，糟糕的是，OSX系统还加载了这个半成品驱动……引发的后果是，你的磁盘数据可以会被损坏……  
 
@@ -88,7 +115,7 @@
 
 补丁打完了，现在要把EFI分区里Clover的config.plist里面的所有关于IONVMeFamily的补丁删除，请自行用Clover Configurator挂载分区并操作。实在懒的话，可以用我GitHub的Clover-Finish文件夹里的plist覆盖你的。
 
-#### 6. 假网卡
+#### 7. 假网卡
 
 - 点击右上角的WiFi图标，选择最后一项，在左边列表删除掉所有网络。
 - 终端执行`sudo rm /Library/Preferences/SystemConfiguration/NetworkInterfaces.plist`
@@ -103,6 +130,99 @@
 我总是有一种怕别人看不懂我文章，或者怕读者遇到和我文章描述的情况不同的时候该怎么办，后来想想，大概这是一种病了，哪里担心得了那么多呢，你会遇到的问题，几乎都有人遇到过，多搜索，然后再发帖提问吧。
 
 完美黑苹果的路还很远，大家一起努力！
+
+## 题外 - NVMe驱动，破解与原生的共存
+> 考虑下如果系统在线升级了，原生IONVMeFamily.kext又被装回来了的情况下可怎么办？这里翻译一篇RehabMan的教程，让破解驱动与原生驱动共存。有动手能力的可以试试，我？当然是试过了才发出来的嘛……
+
+如RehabMan在[patch-nvme的repo](https://github.com/RehabMan/patch-nvme)简介说过的，如果他找到了更好的方案，他会更新上来，刚好中午休息我看见了，于是就根据原贴来一个翻译吧，[原贴](http://www.insanelymac.com/forum/topic/312803-patch-for-using-nvme-under-macos-sierra-is-ready/page-29#entry2322636)。
+
+- 下文提到的原生NVMe驱动指：IONVMeFamily.kext
+- 破解脚本生成的NVMe驱动指：HackrNVMeFamily*.kext
+
+---
+
+这个方法的原理是伪造一个不存在于原生驱动的IOPCIClassMatch取值范围内的class-code来让其不加载。
+
+- 分两步实现：
+	1. 注入一个“非常规”的class-code使得原生NVMe驱动不加载
+	2. 修改HackrNVMeFamily*.kext的Info.plist里的IOPCIClassMatch的值
+
+要注入一个伪造的`class-code`，我选择用ACPI的方式（用一个SSDT）。前提是你必须知道你的SSD在PCI0设备的路径是什么。
+
+在我的`NUC6i7KYK`机子里，路径是`_SB.PCI0.RP13.PXSX`，这个每台电脑都不一定相同的，和你的ACPI表、SSD插在哪个槽都有关，你可以用 **ioreg** 或者 **Windows设备管理器** 来确定，如下图。
+![](./snapshot/1.png)
+
+因此，用于注入非常规`class-code`的SSDT代码如下：
+
+	// Inject bogus class code for NVMe SSD so that native IONVMeFamily.kext does not load
+	DefinitionBlock("", "SSDT", 2, "hack", "NVMe-Pcc", 0)
+	{
+	    External(_SB.PCI0.RP13.PXSX, DeviceObj)
+	    Method(_SB.PCI0.RP13.PXSX._DSM, 4)
+	    {
+	        If (!Arg2) { Return (Buffer() { 0x03 } ) }
+	        Return(Package()
+	        {
+	            "class-code", Buffer() { 0xff, 0x08, 0x01, 0x00 },
+	        })
+	    }
+	}
+	//EOF
+
+在这个SSDT被加载之后，HackrNVMeFamily*.kext（破解脚本生成的驱动）和 原生NVMe驱动 **都不会加载了**，因为IOPCIClassMatch的值不匹配。
+
+我们需要修改HackrNVMeFamily*.kext的IOPCIClassMatch的值为我们的非常规class-code：`0x0108ff00&0xFFFFFF00`。
+
+如果你是用文本编辑器改plist的话，改成这样：
+
+	<key>IOPCIClassMatch</key>
+	<string>0x0108ff00&amp;0xFFFFFF00</string>
+
+高端点，用Xcode改的话：
+![](./snapshot/2.png)
+
+你可以把这种方法用于引导安装OSX或者用于安装好系统之后，它可以让你在系统升级之后依然能够使用HackrNVMeFamily*.kext来驱动，直到你想为新的原生NVMe驱动打破解补丁为止。
+
+当然也可以用`config.plist/Devices/Arbitrary`来注入伪造的class-code。
+在Clover的引导画面，你可以按F2键来得到preboot.log（生成在EFI/Clover/misc/preboot.log），它可以帮你确定PCI设备的地址。
+	
+	0:100  0:000  === [ GetDevices ] ========================================
+	0:100  0:000  PCI (00|00:00.00) : 8086 1910 class=060000
+	0:100  0:000  PCI (00|00:02.00) : 8086 193B class=030000
+	0:100  0:000   - GFX: Model=Intel Iris Graphics P580 (Intel)
+	0:100  0:000  PCI (00|00:08.00) : 8086 1911 class=088000
+	0:100  0:000  PCI (00|00:14.00) : 8086 A12F class=0C0330
+	0:100  0:000  PCI (00|00:14.02) : 8086 A131 class=118000
+	0:100  0:000  PCI (00|00:16.00) : 8086 A13A class=078000
+	0:100  0:000  PCI (00|00:1D.00) : 8086 A118 class=060400
+	0:100  0:000  PCI (00|01:00.00) : 144D A801 class=010601
+	0:100  0:000  PCI (00|00:1D.04) : 8086 A11C class=060400
+	0:100  0:000  PCI (00|02:00.00) : 144D A802 class=010802
+	0:100  0:000  PCI (00|00:1F.00) : 8086 A14E class=060100
+	0:100  0:000  PCI (00|00:1F.02) : 8086 A121 class=058000
+	0:100  0:000  PCI (00|00:1F.03) : 8086 A170 class=040300
+	0:100  0:000  PCI (00|00:1F.04) : 8086 A123 class=0C0500
+	0:100  0:000  PCI (00|00:1F.06) : 8086 15B7 class=020000
+
+你可以看到950 Pro NVMe在PCI地址：02:00.00（设备：144d:a802，注意常规的NVMe class是：010802）
+
+因此，在`Devices/Arbitrary`里这样填：
+![](./snapshot/3.png)
+
+可别忘了，当你启用了Devices/Arbitrary，**所有Clover自动化注入的行为都会被取消掉**（例如Graphics/Inject里的内容），因此，那些自动注入项都要你自己手动在Devices/Arbitrary或者ACPI再注入一次。
+
+---
+
+好了，翻译完了，说说我是怎么做的。
+
+1. 用**ioreg**找到自己的NVMe SSD所在的PCI位置路径，我的是`_SB.PCI0.RP09.PXSX`。
+
+2. 用RehabMan的脚本生成破解的HackrNVMeFamily*.kext驱动，手动修改驱动的Info.plist，把IOPCIClassMatch改成：`0x0108ff00&0xFFFFFF00`，我用`PlistEditPro`改的，然后安装到/Library/Extensions里，把原生NVMe驱动放回原来的S/L/E里。清除缓存。
+
+3. 用上面的SSDT代码生成一个`SSDT-NVMe.aml`，放到ACPI/patched里加载，重启。重启完一切正常，在系统信息里查看IONVMeFamily.kext是没有载入的，签名是Apple的。
+
+4. 有系统升级时照常升级，等新版本的NVMe破解脚本出来后再执行一次第2步（现在是10.12.1了，还没有新版让我测试直接升级）。
+
 
 ## 特别鸣谢
 
