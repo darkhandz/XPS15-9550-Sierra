@@ -40,7 +40,7 @@
 - 如果你有硬盘Clover，把你EFI里的Clover文件夹改名成bak，用我的Clover文件夹代替。
 - 如果你没有硬盘Clover，那就删除U盘EFI分区里面的EFI文件夹，用我的EFI文件夹代替。
 	- 不知道如何设置BIOS让U盘的Clover引导启动的话，参照我上一篇教程的BIOS设置部分。
-- 把我提供的MoreKext-10.12.1.zip复制到U盘安装系统的分区里（方便你安装系统后立刻可以访问）
+- 把我提供的MoreKext-LE复制到U盘安装系统的分区里（方便你安装系统后立刻可以访问）
 - 如果你是4K屏，打开config.plist，在Devices节点下增加一个：
 
 	```
@@ -64,7 +64,7 @@
 
 #### 4. 安装其他驱动
 
-把我提供的MoreKext-10.12.1.zip解压到桌面，里面有**`LE`**和**`VoodooPSController`**文件夹  
+把我提供的MoreKext-LE复制到桌面，里面有**`LE`**和**`VoodooPSController`**文件夹  
 执行终端命令：
 
 - `cd 鼠标拖LE文件夹过来`
