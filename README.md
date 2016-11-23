@@ -16,9 +16,9 @@
 ## 各资源目录的作用
 
 - `ALC298(3266)-Info`，声卡相关的节点，LayoutID，ConfigData信息，有需要可以自己拿来用
-- `CLOVER-Install`，完整的Clover配置，用于安装系统时，也可以用于安装后，差别是config.plist里去掉了安装系统时所需的nvme的patches
+- `CLOVER-Install`，完整的Clover配置（你下载后自己把名字改回Clover），用于安装系统时，也可以用于安装后，差别是config.plist里去掉了安装系统时所需的nvme的patches
 	- `SSDT.aml`不适合i5，请自行学习生成CPU变频的方法。
-- `Clover-Finish`，安装完系统后采用的文件夹，如上所述，只有config.plist稍有不同，另外附上了10.12.1的nvme破解驱动（即打过binary patch后的）
+- `Clover-Finish`，安装完系统后的一些配置变化，只有config.plist稍有不同（去掉了NVMe的破解补丁），另外附上了10.12.1的nvme破解驱动（即打过binary patch后的）
 - `DSDT-HotPatches`，Clover的DSDT/SSDT热补丁dsl源码，可以从[RehabMan主页](https://github.com/RehabMan/OS-X-Clover-Laptop-Config/tree/master/hotpatch)得到。
 	- `SSDT-NVMe.dsl`不可以直接使用，请按下面NVMe教程处理过才用，或者干脆不用！
 - `MoreKexts-LE`，安装好系统后再安装的第三方驱动。
@@ -38,7 +38,7 @@
 还是老伙计，`Transmac`，网上找个和谐版吧，写入U盘的过程我不说了，参考我上一篇教程，写入完毕后：
 
 - 如果你有硬盘Clover，把你EFI里的Clover文件夹改名成bak，用我的Clover文件夹代替。
-- 如果你没有硬盘Clover，那就删除U盘EFI分区里面的EFI文件夹，用我的EFI文件夹代替。
+- 如果你没有硬盘Clover，那就删除U盘EFI分区里面的Clover文件夹，用我的Clover文件夹代替。
 	- 不知道如何设置BIOS让U盘的Clover引导启动的话，参照我上一篇教程的BIOS设置部分。
 - 把我提供的MoreKext-LE复制到U盘安装系统的分区里（方便你安装系统后立刻可以访问）
 - 如果你是4K屏，打开config.plist，在Devices节点下增加一个：
