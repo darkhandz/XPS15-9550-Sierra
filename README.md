@@ -7,11 +7,15 @@
 
 这次DSDT不再采取手动改错+加代码+打补丁的方式了，采用了[RehabMan教程提到的Clover热补丁技术](https://www.tonymacx86.com/threads/guide-using-clover-to-hotpatch-acpi.200137/)。理论上同机型的情况下有一定的通用性，具体情况如何我没有测试过，希望有童鞋成功后可以反馈一下。
 
-假设真的如我上面所说，有一定的通用性的话，这次的操作应该是比较爽的，你只需要下载10.12.1的系统dmg，制作成安装盘，把我的Clover文件夹替换掉引导U盘的Clover文件夹，重启，安装，然后就安装各种第三方驱动，再把Clover做到硬盘引导，一切就完成了。
+假设真的如我上面所说，有一定的通用性的话，这次的操作应该是比较爽的，你只需要下载10.12.1的系统dmg，制作成安装盘，把我的Clover文件夹替换掉引导U盘的Clover文件夹，重启，安装，然后就安装各种第三方驱动，再把Clover做到硬盘引导，一切就完成了，切记不要再放你的DSDT.aml到ACPI/patched目录。
 
 因为10.12确实太不靠谱了，所以不推荐使用，直奔10.12.1比较好。
 
-完成的情况似乎和10.11.6没什么区别，但是不会再随机卡在开机Logo画面了（弃用AppleALC，但还是感谢它的Binary Patches）。
+完成的情况似乎和10.11.6没什么区别，但是不会再随机卡在开机Logo画面了（弃用了AppleALC，但还是感谢它的Binary Patches）。
+
+USB3.1和Thunderbolt目前似乎还是没有什么好办法，等吧。
+
+触摸板驱动还是很差劲，耐心等待吧，还好我都是用鼠标干活的……
 
 ## 各资源目录的作用
 
@@ -50,9 +54,9 @@
 	    <string>0x12345678</string>
 	</dict>
 	```
-- 如果你是i5，config.plist里的`0x191b0000`改成`0x19160000`。
+- 如果你是i5，config.plist里的`0x191b0000`还要改成`0x19160000`。
 - 如果你是i7+1080P，飘过。
-- 忘了说，我Clover采用的是3923版本。
+- 忘了说，我Clover采用的是`3923`版本。
 
 > 感谢 [@matri](https://github.com/matri)同学反映的4K分辨率问题，之前没留意写上来
 
@@ -220,11 +224,11 @@ sudo codesign -f -s - /System/Library/Frameworks/IOKit.framework/Versions/Curren
 
 1. 用**ioreg**找到自己的NVMe SSD所在的PCI位置路径，我的是`_SB.PCI0.RP09.PXSX`。
 
-2. 用RehabMan的脚本生成破解的HackrNVMeFamily*.kext驱动，手动修改驱动的Info.plist，把IOPCIClassMatch改成：`0x0108ff00&0xFFFFFF00`，我用`PlistEditPro`改的，然后安装到/Library/Extensions里，把原生NVMe驱动放回原来的S/L/E里。清除缓存。
+2. 用RehabMan的脚本生成破解的HackrNVMeFamily*.kext驱动，修改Info.plist，我用`PlistEditPro`改的，把IOPCIClassMatch改成：`0x0108ff00&0xFFFFFF00`，然后安装到/Library/Extensions里，把原生NVMe驱动（上面被我们改成了NVME.bak）改名回IONVMeFamily.kext。清除缓存。
 
-3. 用上面的SSDT代码生成一个`SSDT-NVMe.aml`，放到ACPI/patched里加载，重启。重启完一切正常，在系统信息里查看IONVMeFamily.kext是没有载入的，签名是Apple的。
+3. 用上面提供的SSDT代码生成一个`SSDT-NVMe.aml`，放到ACPI/patched里加载，重启。重启完一切正常，在系统信息里查看IONVMeFamily.kext是**没有载入**的，签名是**Apple**的。
 
-4. 有系统升级时照常升级，等新版本的NVMe破解脚本出来后再执行一次第2步（现在是10.12.1了，还没有新版让我测试直接升级）。
+4. 有系统升级时照常升级，等新版本的NVMe破解脚本出来后再执行一次第2步，懒的话也可以什么也不做。（现在是10.12.1了，还没有新版让我测试直接升级）
 
 
 ## 特别鸣谢

@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>AppleHDA</string>
 	<key>CFBundleGetInfoString</key>
-	<string>AppleHDA 274.12, Copyright © 2000-2016 Apple Inc. All rights reserved.</string>
+	<string>AppleHDA 278.23, Copyright © 2000-2016 Apple Inc. All rights reserved.</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.apple.driver.AppleHDA</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -31,17 +31,17 @@
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
-	<string>7D129b</string>
+	<string>8R174l</string>
 	<key>DTPlatformVersion</key>
 	<string>GM</string>
 	<key>DTSDKBuild</key>
-	<string>15G1002</string>
+	<string>16B2655</string>
 	<key>DTSDKName</key>
-	<string>macosx10.11internal</string>
+	<string>macosx10.12internal</string>
 	<key>DTXcode</key>
-	<string>0730</string>
+	<string>0810</string>
 	<key>DTXcodeBuild</key>
-	<string>7D129b</string>
+	<string>8R174l</string>
 	<key>IOKitPersonalities</key>
 	<dict>
 		<key>HDA Driver</key>
@@ -93,13 +93,19 @@
 			<array>
 				<dict>
 					<key>AFGLowPowerState</key>
-					<data>AwAAAA==</data>
+					<data>
+					AwAAAA==
+					</data>
 					<key>CodecID</key>
 					<integer>283902616</integer>
 					<key>CodecName</key>
 					<string>InsanelyDeepak - Realtek ALC298</string>
 					<key>ConfigData</key>
-					<data>AXccEAF3HQABdx4XAXcfkAEnHCABJx0AASceoAEnH5ACFxwwAhcdEAIXHiECFx8CAYccQAGHHRABhx6BAYcfAgFHDAICFwwC</data>
+					<data>
+					AXccEAF3HQABdx4XAXcfkAEnHCABJx0AASce
+					oAEnH5ACFxwwAhcdEAIXHiECFx8CAYccQAGH
+					HRABhx6BAYcfAgFHDAICFwwC
+					</data>
 					<key>FuncGroup</key>
 					<integer>1</integer>
 					<key>LayoutID</key>
@@ -954,7 +960,7 @@
 		</dict>
 	</dict>
 	<key>NSHumanReadableCopyright</key>
-	<string>AppleHDA 274.12, Copyright © 2000-2016 Apple Inc. All rights reserved.</string>
+	<string>AppleHDA 278.23, Copyright © 2000-2016 Apple Inc. All rights reserved.</string>
 	<key>OSBundleLibraries</key>
 	<dict>
 		<key>com.apple.driver.AppleHDAController</key>
