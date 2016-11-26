@@ -85,11 +85,11 @@ USB3.1和Thunderbolt目前似乎还是没有什么好办法，等吧。
 
 #### 5. 4K屏附加处理步骤（1080的自觉飘过吧）
 
-- 终端执行这两条命令：
+- 终端执行这两条命令：（感谢[@yeboxiu](https://github.com/yeboxiu)同学的测试及纠正）
 	
 ```
-sudo perl -i.bak -pe 's|\xB8\x01\x00\x00\x00\xF6\xC1\x01\x0F\x85|\x33\xC0\x90\x90\x90\x90\x90\x90\x90\xE9|sg' /System/Library/Frameworks/IOKit.framework/Versions/Current/IOKit
-sudo codesign -f -s - /System/Library/Frameworks/IOKit.framework/Versions/Current/IOKit
+sudo perl -i.bak -pe 's|\xB8\x01\x00\x00\x00\xF6\xC1\x01\x0F\x85|\x33\xC0\x90\x90\x90\x90\x90\x90\x90\xE9|sg' /System/Library/Frameworks/CoreDisplay.framework/Versions/Current/CoreDisplay
+sudo codesign -f -s - /System/Library/Frameworks/CoreDisplay.framework/Versions/Current/CoreDisplay
 ```
 	
 - 然后把config.plist的Devices下的FakeID整个删除（如果是用Clover Configurator配置，把IntelGFX框清空）。
