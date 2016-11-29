@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>16B2555</string>
+	<string>16B2657</string>
 	<key>CFBundleExecutable</key>
 	<string>VoodooPS2Trackpad</string>
 	<key>CFBundleGetInfoString</key>
@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>KEXT</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.8.24e</string>
+	<string>1.8.24g</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleSupportedPlatforms</key>
@@ -460,12 +460,18 @@
 					<key>ClickPad</key>
 					<dict>
 						<key>EdgeBottom</key>
-						<integer>1100</integer>
+						<integer>0</integer>
 						<key>FingerZ</key>
 						<integer>30</integer>
+						<key>MaxTapTime</key>
+						<integer>100000000</integer>
 						<key>MouseMultiplierX</key>
 						<integer>2</integer>
 						<key>MouseMultiplierY</key>
+						<integer>2</integer>
+						<key>MouseScrollMultiplierX</key>
+						<integer>2</integer>
+						<key>MouseScrollMultiplierY</key>
 						<integer>2</integer>
 					</dict>
 					<key>Clicking</key>
@@ -496,12 +502,18 @@
 						<integer>1</integer>
 						<key>FingerZ</key>
 						<integer>47</integer>
+						<key>MaxTapTime</key>
+						<integer>100000000</integer>
 						<key>MomentumScrollThreshY</key>
 						<integer>16</integer>
 						<key>MouseMultiplierX</key>
 						<integer>8</integer>
 						<key>MouseMultiplierY</key>
 						<integer>8</integer>
+						<key>MouseScrollMultiplierX</key>
+						<integer>2</integer>
+						<key>MouseScrollMultiplierY</key>
+						<integer>2</integer>
 						<key>MultiFingerHorizontalDivisor</key>
 						<integer>4</integer>
 						<key>MultiFingerVerticalDivisor</key>

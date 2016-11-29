@@ -1,4 +1,3 @@
-
 ## 前言
 
 > 这里讨论的配置是：XPS15-9550 i7-6700HQ HD530 8G-DDR4 1080P THNSN5256GPU7-NVMe-256G DW1830(无线网卡ac+蓝牙4.1LE)  Realtek ALC298 (codec:10EC0298,layout-id:13)
@@ -13,9 +12,11 @@
 
 完成的情况似乎和10.11.6没什么区别，但是不会再随机卡在开机Logo画面了（弃用了AppleALC，但还是感谢它的Binary Patches）。
 
-USB3.1和Thunderbolt目前似乎还是没有什么好办法，等吧。
+USB3.1和Thunderbolt目前似乎还是没有什么好办法，我也没有设备测试，不知道什么情况，自行发挥吧。
 
 触摸板驱动还是很差劲，耐心等待吧，还好我都是用鼠标干活的……
+
+有时候安装一些第三方驱动之后会导致重启后没有声音，不要慌，清除缓存再重启一次就好了。
 
 ## 各资源目录的作用
 
@@ -127,7 +128,6 @@ sudo codesign -f -s - /System/Library/Frameworks/CoreDisplay.framework/Versions/
 - 终端执行`sudo rm /Library/Preferences/SystemConfiguration/NetworkInterfaces.plist`
 - 系统偏好设置——Language & Region，添加简体中文，Restart now（重启）。
 - 等系统重启完了，点击右上角的WiFi图标，选择最后一项，按顺序重新添加**以太网**，**Wi-Fi**，应用。蓝牙可以不添加，之后自动会加的。
-
 
 ## 结束
 

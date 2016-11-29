@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>16B2555</string>
+	<string>16B2657</string>
 	<key>CFBundleExecutable</key>
 	<string>VoodooPS2Mouse</string>
 	<key>CFBundleGetInfoString</key>
@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>KEXT</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.8.24e</string>
+	<string>1.8.24g</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleSupportedPlatforms</key>
