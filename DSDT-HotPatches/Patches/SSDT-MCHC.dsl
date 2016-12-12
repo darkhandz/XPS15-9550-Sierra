@@ -1,6 +1,6 @@
 // Add MCHC
 
-DefinitionBlock("", "SSDT", 2, "hack", "HPET", 0)
+DefinitionBlock("", "SSDT", 2, "hack", "MCHC", 0)
 {
     External(_SB.PCI0, DeviceObj)
 

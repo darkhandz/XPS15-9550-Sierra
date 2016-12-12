@@ -4,6 +4,12 @@
 <dict>
 	<key>ACPI</key>
 	<dict>
+		<key>HaltEnabler</key>
+		<false/>
+		<key>ResetAddress</key>	
+		<string>0xB2</string>	
+		<key>ResetValue</key>	
+		<string>0x73</string>
 		<key>#DropTables</key>
 		<array>
 			<dict>
@@ -108,6 +114,54 @@
 					<key>Replace</key>
 					<data>
 					WERTTQ==
+					</data>
+				</dict>
+				<dict>
+					<key>Comment</key>
+					<string>Device AC rename to ADP1  pair with SSDT-ADP1 - credit syscl</string>
+					<key>Find</key>
+					<data>
+					QUNfXw==
+					</data>
+					<key>Replace</key>
+					<data>
+					QURQMQ==
+					</data>
+				</dict>
+				<dict>
+					<key>Comment</key>
+					<string>Remove _STA method for PNP0C04 to load - credit syscl</string>
+					<key>Find</key>
+					<data>
+					AQEiACB5ABQYX1NUQQA=
+					</data>
+					<key>Replace</key>
+					<data>
+					AQEiACB5ABQYWFNUQQA=
+					</data>
+				</dict>
+				<dict>
+					<key>Comment</key>
+					<string>Device SBTN rename to SLPB pair with SSDT-SLPB - credit syscl</string>
+					<key>Find</key>
+					<data>
+					U0JUTg==
+					</data>
+					<key>Replace</key>
+					<data>
+					U0xQQg==
+					</data>
+				</dict>
+				<dict>
+					<key>Comment</key>
+					<string>Device ALSD rename to ALS0 - credit syscl</string>
+					<key>Find</key>
+					<data>
+					QUxTRAhfSEk=
+					</data>
+					<key>Replace</key>
+					<data>
+					QUxTMAhfSEk=
 					</data>
 				</dict>
 				<dict>
@@ -846,6 +900,22 @@
 				AQAA6xc=
 				</data>
 			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>eDP, port 0000, 0x191e0000, 0x19160000, 0x19260000, 0x19270000, 0x191b0000, 0x19160002, 0x19260002, 0x191e0003, 0x19260004, 0x19270004, 0x193b0005 credit syscl</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Find</key>
+				<data>
+				AAAIAAIAAACYAAAAAQUJAAAEAAA=
+				</data>
+				<key>Name</key>
+				<string>AppleIntelSKLGraphicsFramebuffer</string>
+				<key>Replace</key>
+				<data>
+				AAAIAAAEAACYAAAAAQUJAAAEAAA=
+				</data>
+			</dict>
 		</array>
 	</dict>
 	<key>RtVariables</key>
@@ -888,7 +958,7 @@
 		<key>SmUUID</key>
 		<string>E0BA6AA9-283A-44D9-AC8A-6D8A38BBED1E</string>
 		<key>Trust</key>
-		<false/>
+		<true/>
 		<key>Version</key>
 		<string>1.0</string>
 	</dict>

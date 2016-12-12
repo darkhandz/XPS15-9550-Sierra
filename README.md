@@ -214,7 +214,8 @@ sudo codesign -f -s - /System/Library/Frameworks/CoreDisplay.framework/Versions/
 你可以看到950 Pro NVMe在PCI地址：02:00.00（设备：144d:a802，注意常规的NVMe class是：010802）
 
 因此，在`Devices/Arbitrary`里这样填：
-	![](./snapshot/3.png)
+
+![](./snapshot/3.png)
 
 可别忘了，当你启用了Devices/Arbitrary，**所有Clover自动化注入的行为都会被取消掉**（例如Graphics/Inject里的内容），因此，那些自动注入项都要你自己手动在Devices/Arbitrary或者ACPI再注入一次。
 
@@ -229,6 +230,59 @@ sudo codesign -f -s - /System/Library/Frameworks/CoreDisplay.framework/Versions/
 3. 用上面提供的SSDT代码生成一个`SSDT-NVMe.aml`，放到ACPI/patched里加载，重启。重启完一切正常，在系统信息里查看IONVMeFamily.kext是**没有载入**的，签名是**Apple**的。
 
 4. 有系统升级时照常升级，等新版本的NVMe破解脚本出来后再执行一次第2步，懒的话也可以什么也不做。（现在是10.12.1了，还没有新版让我测试直接升级）
+
+
+## 题外 - 系统崩溃无法启动 / 启动分区消失
+
+确实有这样的情况，我一共遇到过3次，**`一旦出现，你除了重新安装系统，别无他法`**（如果有，请告诉我，万分感谢！）
+
+- 触发条件：从深度睡眠唤醒，有小几率发生
+- 情况分为两种：
+	1. 唤醒后打开任何APP都崩溃，只能重启系统。一旦重启，你会卡在Verbose画面，提示读取某些文件出问题。
+	2. 唤醒后直接自动重启，进入Clover画面，macOS启动项消失，只有Recovery HD项还存在。
+
+遇到情况1，尝试过用引导U盘来进入安装系统时的磁盘工具，急救，失败，退出代码8。尝试用终端手动fsck_hfs -fy，失败。  
+遇到情况2，系统分区在磁盘工具也无法急救，只能抹掉。
+
+针对这个严重的问题，我请教过[@syscl](https://github.com/syscl) ，他提到Clover的`HWPEnable`为true时会导致黑苹果在休眠状态下数据严重损坏，但是我有两次崩溃是在10.11.6，当时并没有开启`HWPEnable`，所以我觉得原因不一定是这个。
+
+绝对排除了在Windows安装HFS+读取软件导致的问题，我没有安装这类软件。
+
+我开头也怀疑过是NVMe驱动破解有问题导致的，但是我的NVMe SSD划分为两个分区，另外一个文件系统是exFAT，资料完完整整没有损坏，只有AFS系统分区完全损坏了。
+
+目前我没有办法解决这个问题，就我所知，tonymacx86论坛也有[几个人](https://www.tonymacx86.com/threads/guide-dell-xps-15-9550-skylake-gtx960m-ssd-via-clover-uefi.192598/page-190#post-1388688)遇到这种情况了，不是个例。
+
+### 我的解决办法
+
+下面的设置项不一定都和上述问题有关，我没有一项一项去测试，因为我的笔记本要用来工作，所以没有时间去验证，但是我目前确实不会系统分区崩溃了。
+
+1. 实现`题外 - NVMe驱动，破解与原生的共存`
+- config.plist - Boot - NeverHibernate = true
+- 系统设置 - 节能 - 取消 **如果可能，使硬盘进入睡眠**，取消 **Power Nap**
+- 用`pmset -g`查看你的节能参数，调整成我下面这样，用`sudo pmset -a 选项 参数`调整。
+
+	```
+	$ pmset -g
+	System-wide power settings:
+	Currently in use:
+	 standbydelay         3600
+	 standby              1
+	 halfdim              0
+	 hibernatefile        /var/vm/sleepimage
+	 powernap             0
+	 gpuswitch            2
+	 disksleep            10
+	 sleep                15
+	 autopoweroffdelay    90000
+	 hibernatemode        3
+	 autopoweroff         1
+	 ttyskeepawake        1
+	 displaysleep         2
+	 lidwake              1
+	```
+
+以上设置在我9550已经测试了一个月，深度睡眠唤醒几十次了，系统不重启时间超过6天了，都没有问题。  
+祝你好运！
 
 
 ## 特别鸣谢

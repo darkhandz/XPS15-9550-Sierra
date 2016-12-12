@@ -2,3 +2,4 @@
 .DS_Store
 HackrNVMeFamily-10_12_1_darkhandz.kext
 SSDT-NVMe-darkhandz.aml
+config-dark.plist
