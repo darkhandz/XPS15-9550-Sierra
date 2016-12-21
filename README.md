@@ -8,7 +8,7 @@
 
 亮度低闪屏的问题已经在2016-12月19日的DELL BIOS更新中解决。
 
-亮度不能保存的问题，测试用`Clover v3899+EmuVariable-Uefi64.efi`可以正确保存。
+亮度不能保存的问题，测试安装`Clover v3899 + 选择EmuVariable-Uefi64.efi + 选择RCScripts`可以正确保存。
 
 ### 存在的问题：
 
