@@ -4,29 +4,31 @@
 
 之前在论坛10.11版发过一篇教程，写得算是详细了，但是苦于论坛编辑器各种坑，内容总是不能完整 ([GitHub完整观摩地址](https://github.com/darkhandz/XPS15-9550-OSX))。所以这次写10.12.1的，就不打算长篇大论手把手什么的了，假设各位童鞋都是有经验的，关键的地方点到为止即可。
 
-这次DSDT不再采取手动改错+加代码+打补丁的方式了，采用了[RehabMan教程提到的Clover热补丁技术](https://www.tonymacx86.com/threads/guide-using-clover-to-hotpatch-acpi.200137/)。理论上同机型的情况下有一定的通用性，具体情况如何我没有测试过，希望有童鞋成功后可以反馈一下。
+这次DSDT不再采取手动修改代码+打补丁的方式了，采用了[RehabMan教程提到的Clover热补丁技术](https://www.tonymacx86.com/threads/guide-using-clover-to-hotpatch-acpi.200137/)。理论上同机型的情况下有一定的通用性，从实际安装成功的例子来看，确实如此。在此基础上，我们的工作量就大大地减少了，你只需要下载10.12.1的系统dmg，制作成安装盘，把我提供的Clover文件夹替换掉U盘EFI（或硬盘EFI）的Clover文件夹，重启，进入系统安装，完成后安装各种第三方驱动，一切就完成了，切记不要再放任何DSDT.aml到ACPI/patched目录。
 
-假设真的如我上面所说，有一定的通用性的话，这次的操作应该是比较爽的，你只需要下载10.12.1的系统dmg，制作成安装盘，把我的Clover文件夹替换掉引导U盘的Clover文件夹，重启，安装，然后就安装各种第三方驱动，再把Clover做到硬盘引导，一切就完成了，切记不要再放你的DSDT.aml到ACPI/patched目录。
+亮度低闪屏的问题已经在2016-12月19日的DELL BIOS更新中解决。
 
-因为10.12确实太不靠谱了，所以不推荐使用，直奔10.12.1比较好。
+亮度不能保存的问题，测试用`Clover v3899+EmuVariable-Uefi64.efi`可以正确保存。
 
-完成的情况似乎和10.11.6没什么区别，但是不会再随机卡在开机Logo画面了（弃用了AppleALC，但还是感谢它的Binary Patches）。
+### 存在的问题：
 
-USB3.1和Thunderbolt目前似乎还是没有什么好办法，我也没有设备测试，不知道什么情况，自行发挥吧。
+- USB3.1和Thunderbolt，我没有设备测试，不知道什么情况，请自行研究测试。
+- 触摸板的手势目前还没有10.11.6那么完善，你可以自行测试最新的[VoodooPS2Controller](https://github.com/RehabMan/OS-X-Voodoo-PS2-Controller)或[SmartTouchpad](http://forum.osxlatitude.com/index.php?/topic/1948-elan-focaltech-and-synaptics-smart-touchpad-driver-mac-os-x/)
+- 有时候安装一些第三方驱动之后会导致重启后没有声音（无输入输出设备），不要慌，等1分钟就自动好了的，1分钟后不好的话请重启一次。
+- 如果不安装CodecCommander+SSDT-ALC298.aml，耳机会存在单声道问题，如果安装CodecCommander+SSDT-ALC298.aml，唤醒后可能会无声，必须拔插一下耳机才可以恢复声音。
 
-触摸板驱动还是很差劲，耐心等待吧，还好我都是用鼠标干活的……
 
-有时候安装一些第三方驱动之后会导致重启后没有声音，不要慌，清除缓存再重启一次就好了。
 
 ## 各资源目录的作用
 
-- `ALC298(3266)-Info`，声卡相关的节点，LayoutID，ConfigData信息，有需要可以自己拿来用
-- `CLOVER-Install`，完整的Clover配置（你下载后自己把名字改回Clover），用于安装系统时，也可以用于安装后，差别是config.plist里去掉了安装系统时所需的nvme的patches
-	- `SSDT.aml`不适合i5，请自行学习生成CPU变频的方法。
-- `Clover-Finish`，安装完系统后的一些配置变化，只有config.plist稍有不同（去掉了NVMe的破解补丁），另外附上了10.12.1的nvme破解驱动（即打过binary patch后的）
+- `ALC298(3266)-Info`，声卡相关的节点，LayoutID，ConfigData信息，原始Codec，还有从windows10注册表提取出来的PinConfigData，有需要可以自己拿来修改
+- `CLOVER-Install`，完整的Clover配置（你下载后自己把名字改回Clover），用于安装系统时，也可以用于安装后，差别是Clover-Finish/config.plist去掉了安装系统时所需的nvme的patches
+	- `SSDT.aml`不适合i5，请自行学习[生成CPU变频SSDT](https://github.com/Piker-Alpha/ssdtPRGen.sh)的方法。
+- `Clover-Finish`，安装完系统后的一些配置变化，只有config.plist稍有不同（去掉了NVMe的破解补丁），另外附上了10.12.1的nvme破解驱动（即binary patch后的）
 - `DSDT-HotPatches`，Clover的DSDT/SSDT热补丁dsl源码，可以从[RehabMan主页](https://github.com/RehabMan/OS-X-Clover-Laptop-Config/tree/master/hotpatch)得到。
-	- `SSDT-NVMe.dsl`不可以直接使用，请按下面NVMe教程处理过才用，或者干脆不用！
+	- `SSDT-NVMe.dsl`不可以直接使用，请按最后面的NVMe教程处理过才用，或者干脆不用！
 - `MoreKexts-LE`，安装好系统后再安装的第三方驱动。
+- 如果你需要修改声卡Layout-ID，请在`SSDT-Config.dsl`修改`Name(AUDL, 你的id十进制)`，然后编译成aml，放回`ACPI/patched`
 
 
 ## 开始
@@ -35,7 +37,7 @@ USB3.1和Thunderbolt目前似乎还是没有什么好办法，我也没有设备
 
 这个可以自行下载，找pcbeta论坛里10.12.1的DMG就行了
 
-- 如果你已有硬盘EFI分区的Clover，那下载原版的DMG也可以
+- 如果你已有硬盘EFI分区的Clover，下载原版的DMG也可以
 - 没有的话就要找带U盘Clover引导的镜像，这里随便无责任推一个：[10.12.1镜像](http://bbs.pcbeta.com/viewthread-1724225-1-1.html)，注意选用原版，不要下错懒人版了。
 
 #### 2. 镜像写入U盘
@@ -138,9 +140,9 @@ sudo codesign -f -s - /System/Library/Frameworks/CoreDisplay.framework/Versions/
 完美黑苹果的路还很远，大家一起努力！
 
 ## 题外 - NVMe驱动，破解与原生的共存
-> 考虑下如果系统在线升级了，原生IONVMeFamily.kext又被装回来了的情况下可怎么办？这里翻译一篇RehabMan的教程，让破解驱动与原生驱动共存。有动手能力的可以试试，我？当然是试过了才发出来的嘛……
+> 考虑下如果系统在线升级了，原生IONVMeFamily.kext又被装回来了的情况下可怎么办？这里翻译一篇RehabMan的教程，让破解驱动与原生驱动共存。有动手能力的可以试试，我？当然是试过了才发出来的嘛……做完之后10.12.1直升10.12.2成功。
 
-如RehabMan在[patch-nvme的repo](https://github.com/RehabMan/patch-nvme)简介说过的，如果他找到了更好的方案，他会更新上来，刚好中午休息我看见了，于是就根据原贴来一个翻译吧，[原贴](http://www.insanelymac.com/forum/topic/312803-patch-for-using-nvme-under-macos-sierra-is-ready/page-29#entry2322636)。
+方法是RehabMan[原贴](http://www.insanelymac.com/forum/topic/312803-patch-for-using-nvme-under-macos-sierra-is-ready/page-29#entry2322636)提出的。
 
 - 下文提到的原生NVMe驱动指：IONVMeFamily.kext
 - 破解脚本生成的NVMe驱动指：HackrNVMeFamily*.kext
@@ -221,15 +223,42 @@ sudo codesign -f -s - /System/Library/Frameworks/CoreDisplay.framework/Versions/
 
 ---
 
-好了，翻译完了，说说我是怎么做的。
+### 好了，翻译完了，说说我是怎么做的
 
 1. 用**ioreg**找到自己的NVMe SSD所在的PCI位置路径，我的是`_SB.PCI0.RP09.PXSX`。
 
-2. 用RehabMan的脚本生成破解的HackrNVMeFamily*.kext驱动，修改Info.plist，我用`PlistEditPro`改的，把IOPCIClassMatch改成：`0x0108ff00&0xFFFFFF00`，然后安装到/Library/Extensions里，把原生NVMe驱动（上面被我们改成了NVME.bak）改名回IONVMeFamily.kext。清除缓存。
+2. 把原生NVMe驱动（上面被我们改成了NVME.bak）改名回IONVMeFamily.kext，再用RehabMan的脚本生成破解的HackrNVMeFamily*.kext驱动，~~修改Info.plist，我用`PlistEditPro`改的，把IOPCIClassMatch改成：`0x0108ff00&0xFFFFFF00`~~，现在可以用脚本参数：`./patch_nvme.sh --spoof 10_12_1` 直接生成修改好class-code的破解驱动，然后把它安装到/Library/Extensions里，重建缓存。
 
-3. 用上面提供的SSDT代码生成一个`SSDT-NVMe.aml`，放到ACPI/patched里加载，重启。重启完一切正常，在系统信息里查看IONVMeFamily.kext是**没有载入**的，签名是**Apple**的。
+3. 用上面提供的SSDT代码(SSDT-NVMe.dsl)生成一个`SSDT-NVMe.aml`（记得修改RP13为你的），放到ACPI/patched里加载，重启。重启完一切正常，在系统信息里查看IONVMeFamily.kext是**没有载入**的，签名是**Apple**的。
 
-4. 有系统升级时照常升级，等新版本的NVMe破解脚本出来后再执行一次第2步，懒的话也可以什么也不做。（现在是10.12.1了，还没有新版让我测试直接升级）
+4. 有系统升级时照常升级，等新版本的NVMe破解脚本出来后再执行一次第2步，懒的话也可以什么也不做。比如我目前是10.12.1，到了12月14日，10.12.2正式版出来了，然后我直接App Store更新系统，5分钟左右就升级成功了，系统使用一切正常，当然4K的要注意FakeID和补丁，下面有讨论到。
+
+
+## 题外 - App Store系统在线升级
+
+- 如果你是1080P
+	- 完成`NVMe驱动，破解与原生的共存`的操作，你可以直接在AppStore里升级，我就是这样升级到10.12.2的。
+
+- 如果你是4K
+	- 完成`NVMe驱动，破解与原生的共存`的操作，
+	- 在升级前把config.plist修改，在Devices下增加：
+
+		```
+		<key>FakeID</key>
+		<dict>
+		    <key>IntelGFX</key>
+		    <string>0x12345678</string>
+		</dict>
+		```
+
+	- 升级完系统之后再执行终端命令：
+	
+		```
+		sudo perl -i.bak -pe 's|\xB8\x01\x00\x00\x00\xF6\xC1\x01\x0F\x85|\x33\xC0\x90\x90\x90\x90\x90\x90\x90\xE9|sg' /System/Library/Frameworks/CoreDisplay.framework/Versions/Current/CoreDisplay
+		sudo codesign -f -s - /System/Library/Frameworks/CoreDisplay.framework/Versions/Current/CoreDisplay
+		```
+	
+	- 然后把config.plist的Devices下的FakeID整个删除（如果是用Clover Configurator配置，把IntelGFX框清空）。
 
 
 ## 题外 - 系统崩溃无法启动 / 启动分区消失
@@ -280,6 +309,7 @@ sudo codesign -f -s - /System/Library/Frameworks/CoreDisplay.framework/Versions/
 	 displaysleep         2
 	 lidwake              1
 	```
+- 深度睡眠前保持电量10%以上（我一般是晚上11点睡眠到早上8:30，大概会消耗7%）
 
 以上设置在我9550已经测试了一个月，深度睡眠唤醒几十次了，系统不重启时间超过6天了，都没有问题。  
 祝你好运！
