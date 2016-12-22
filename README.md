@@ -6,17 +6,17 @@
 
 这次DSDT不再采取手动修改代码+打补丁的方式了，采用了[RehabMan教程提到的Clover热补丁技术](https://www.tonymacx86.com/threads/guide-using-clover-to-hotpatch-acpi.200137/)。理论上同机型的情况下有一定的通用性，从实际安装成功的例子来看，确实如此。在此基础上，我们的工作量就大大地减少了，你只需要下载10.12.1的系统dmg，制作成安装盘，把我提供的Clover文件夹替换掉U盘EFI（或硬盘EFI）的Clover文件夹，重启，进入系统安装，完成后安装各种第三方驱动，一切就完成了，切记不要再放任何DSDT.aml到ACPI/patched目录。
 
-亮度低闪屏的问题已经在2016-12月19日的DELL BIOS更新中解决。
+亮度低闪屏的问题已经在2016-12月19日的BIOS更新中解决（国外论坛讨论的，我这里还没实测）
 
 亮度不能保存的问题，测试安装`Clover v3899 + 选择EmuVariable-Uefi64.efi + 选择RCScripts`可以正确保存。
 
 ### 存在的问题：
 
-- USB3.1和Thunderbolt，我没有设备测试，不知道什么情况，请自行研究测试。
+- USB3.1和Thunderbolt，以及HDMI，我都没有设备测试，不知道什么情况，请自行研究测试。
 - 触摸板的手势目前还没有10.11.6那么完善，你可以自行测试最新的[VoodooPS2Controller](https://github.com/RehabMan/OS-X-Voodoo-PS2-Controller)或[SmartTouchpad](http://forum.osxlatitude.com/index.php?/topic/1948-elan-focaltech-and-synaptics-smart-touchpad-driver-mac-os-x/)
 - 有时候安装一些第三方驱动之后会导致重启后没有声音（无输入输出设备），不要慌，等1分钟就自动好了的，1分钟后不好的话请重启一次。
 - 如果不安装CodecCommander+SSDT-ALC298.aml，耳机会存在单声道问题，如果安装CodecCommander+SSDT-ALC298.aml，唤醒后可能会无声，必须拔插一下耳机才可以恢复声音。
-
+- 读卡器就不要妄想了…………
 
 
 ## 各资源目录的作用
@@ -59,7 +59,6 @@
 	```
 - 如果你是i5，config.plist里的`0x191b0000`还要改成`0x19160000`。
 - 如果你是i7+1080P，飘过。
-- 忘了说，我Clover采用的是`3923`版本。
 
 > 感谢 [@matri](https://github.com/matri)同学反映的4K分辨率问题，之前没留意写上来
 
