@@ -476,18 +476,6 @@
 			</dict>
 			<dict>
 				<key>Signature</key>
-				<string>SSDT</string>
-				<key>TableId</key>
-				<string>CpuPm</string>
-			</dict>
-			<dict>
-				<key>Signature</key>
-				<string>SSDT</string>
-				<key>TableId</key>
-				<string>Cpu0Ist</string>
-			</dict>
-			<dict>
-				<key>Signature</key>
 				<string>DMAR</string>
 			</dict>
 		</array>
@@ -1174,17 +1162,21 @@
 			</dict>
 			<dict>
 				<key>Comment</key>
-				<string>Fix HDMI output - for iMac17,1</string>
+				<string>change 15 port limit to 26 in XHCI kext (100-series)</string>
 				<key>Disabled</key>
-				<false/>
-				<key>Find</key>
-				<string>3e4d61632d423830394333373537444139424238443c2f6b65793e0a090909093c737472696e673e436f6e666967323c2f737472696e673e0a09</string>
-				<key>InfoPlistPatch</key>
 				<true/>
+				<key>Find</key>
+				<data>
+				g710////EA==
+				</data>
+				<key>MatchOS</key>
+				<string>10.12.x</string>
 				<key>Name</key>
-				<string>AppleGraphicsDevicePolicy</string>
+				<string>AppleUSBXHCIPCI</string>
 				<key>Replace</key>
-				<string>3e4d61632d423830394333373537444139424238443c2f6b65793e0a090909093c737472696e673e6e6f6e653c2f737472696e673e0a09090909</string>
+				<data>
+				g710////Gw==
+				</data>
 			</dict>
 		</array>
 	</dict>
