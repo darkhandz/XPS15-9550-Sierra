@@ -1,5 +1,7 @@
 ## 前言
 
+>>这里没有我原创的东西，用到的任何驱动任何方法任何脚本任何命令，都是别人的成果，向作者们致敬，心怀感激。
+
 > 这里讨论的配置是：XPS15-9550 i7-6700HQ HD530 8G-DDR4 1080P THNSN5256GPU7-NVMe-256G DW1830(无线网卡ac+蓝牙4.1LE)  Realtek ALC298 (codec:10EC0298,layout-id:13)
 
 之前在论坛10.11版发过一篇教程，写得算是详细了，但是苦于论坛编辑器各种坑，内容总是不能完整 ([GitHub完整观摩地址](https://github.com/darkhandz/XPS15-9550-OSX))。所以这次写10.12.1的，就不打算长篇大论手把手什么的了，假设各位童鞋都是有经验的，关键的地方点到为止即可。
@@ -10,6 +12,7 @@
 
 ### 存在的问题：
 
+- 深度睡眠唤醒后有可能会导致系统分区崩溃，必须重装系统或者从备份还原，据观察，有部分人会遇到，很不幸我就是其中一位。
 - USB3.1和Thunderbolt，以及HDMI，我都没有设备测试，可以参考 @corenel 的 [repo](https://github.com/corenel/XPS9550-OSX)，他用 `MacBook9,1` SMBIOS。
 - 触摸板的手势目前还没有10.11.6那么完善，你可以自行测试最新的[VoodooPS2Controller](https://github.com/RehabMan/OS-X-Voodoo-PS2-Controller)或[SmartTouchpad](http://forum.osxlatitude.com/index.php?/topic/1948-elan-focaltech-and-synaptics-smart-touchpad-driver-mac-os-x/)
 - 有时候安装一些第三方驱动之后会导致重启后没有声音（无输入输出设备），不要慌，等1分钟就自动好了的，1分钟后不好的话请重启一次。
@@ -261,17 +264,17 @@ sudo codesign -f -s - /System/Library/Frameworks/CoreDisplay.framework/Versions/
 
 ## 题外 - 系统崩溃无法启动 / 启动分区消失
 
-确实有这样的情况，我一共遇到过3次，**`一旦出现，你除了重新安装系统，别无他法`**（如果有，请告诉我，万分感谢！）
+确实有这样的情况，我一共遇到过3次，**`一旦出现，你除了重新安装系统、TimeMachine还原，别无他法`**（如果有，请告诉我，万分感谢！）
 
 - 触发条件：从深度睡眠唤醒，有小几率发生
 - 情况分为两种：
 	1. 唤醒后打开任何APP都崩溃，只能重启系统。一旦重启，你会卡在Verbose画面，提示读取某些文件出问题。
-	2. 唤醒后直接自动重启，进入Clover画面，macOS启动项消失，只有Recovery HD项还存在。
+	2. 唤醒后直接自动重启或开盖后处于关机状态，需要手动开机，进入Clover画面，只有macOS启动项消失了，其他Recovery HD、Windows等启动项还存在。
 
 遇到情况1，尝试过用引导U盘来进入安装系统时的磁盘工具，急救，失败，退出代码8。尝试用终端手动fsck_hfs -fy，失败。  
-遇到情况2，系统分区在磁盘工具也无法急救，只能抹掉。
+遇到情况2，进入RecoveryHD，打开磁盘工具，macOS分区急救也失败，退出代码8。
 
-针对这个严重的问题，我请教过[@syscl](https://github.com/syscl) ，他提到Clover的`HWPEnable`为true时会导致黑苹果在休眠状态下数据严重损坏，但是我有两次崩溃是在10.11.6，当时并没有开启`HWPEnable`，所以我觉得原因不一定是这个。
+针对这个严重的问题，我请教过[@syscl](https://github.com/syscl) ，他提到Clover的`HWPEnable`为true时会导致黑苹果在休眠状态下数据严重损坏，但是我有三次崩溃都没有开启`HWPEnable`，所以我觉得原因不是这个。
 
 绝对排除了在Windows安装HFS+读取软件导致的问题，我没有安装这类软件。
 
@@ -279,38 +282,9 @@ sudo codesign -f -s - /System/Library/Frameworks/CoreDisplay.framework/Versions/
 
 目前我没有办法解决这个问题，就我所知，tonymacx86论坛也有[几个人](https://www.tonymacx86.com/threads/guide-dell-xps-15-9550-skylake-gtx960m-ssd-via-clover-uefi.192598/page-190#post-1388688)遇到这种情况了，不是个例。
 
-### 我的解决办法
+### 解决办法
 
-下面的设置项不一定都和上述问题有关，我没有一项一项去测试，因为我的笔记本要用来工作，所以没有时间去验证，但是我目前确实不会系统分区崩溃了。
-
-1. 实现`题外 - NVMe驱动，破解与原生的共存`
-- config.plist - Boot - NeverHibernate = true
-- 系统设置 - 节能 - 取消 **如果可能，使硬盘进入睡眠**，取消 **Power Nap**
-- 用`pmset -g`查看你的节能参数，调整成我下面这样，用`sudo pmset -a 选项 参数`调整。
-
-	```
-	$ pmset -g
-	System-wide power settings:
-	Currently in use:
-	 standbydelay         3600
-	 standby              1
-	 halfdim              0
-	 hibernatefile        /var/vm/sleepimage
-	 powernap             0
-	 gpuswitch            2
-	 disksleep            10
-	 sleep                15
-	 autopoweroffdelay    90000
-	 hibernatemode        3
-	 autopoweroff         1
-	 ttyskeepawake        1
-	 displaysleep         2
-	 lidwake              1
-	```
-- 深度睡眠前保持电量10%以上（我一般是晚上11点睡眠到早上8:30，大概会消耗7%）
-
-以上设置在我9550已经测试了一个月，深度睡眠唤醒几十次了，系统不重启时间超过6天了，都没有问题。  
-祝你好运！
+11月中安装的10.12.1系统，使用期间直接升级到10.12.2用了半个月，到12月30日崩溃了，我已经没有解决办法，很沮丧，各位都时刻准备好TimeMachine吧，祝你好运！
 
 
 ## 特别鸣谢
