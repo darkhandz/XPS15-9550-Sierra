@@ -264,7 +264,7 @@ sudo codesign -f -s - /System/Library/Frameworks/CoreDisplay.framework/Versions/
 
 ## 题外 - 系统崩溃无法启动 / 启动分区消失
 
-确实有这样的情况，我一共遇到过3次，**`一旦出现，你除了重新安装系统、TimeMachine还原，别无他法`**（如果有，请告诉我，万分感谢！）
+确实有这样的情况，我一共遇到过4次，**`一旦出现，你除了重新安装系统、TimeMachine还原，别无他法`**（如果有，请告诉我，万分感谢！）
 
 - 触发条件：从深度睡眠唤醒，有小几率发生
 - 情况分为两种：
@@ -280,11 +280,9 @@ sudo codesign -f -s - /System/Library/Frameworks/CoreDisplay.framework/Versions/
 
 我开头也怀疑过是NVMe驱动破解有问题导致的，但是我的NVMe SSD划分为两个分区，另外一个文件系统是exFAT，资料完完整整没有损坏，只有AFS系统分区完全损坏了。
 
-目前我没有办法解决这个问题，就我所知，tonymacx86论坛也有[几个人](https://www.tonymacx86.com/threads/guide-dell-xps-15-9550-skylake-gtx960m-ssd-via-clover-uefi.192598/page-190#post-1388688)遇到这种情况了，不是个例。
+已经有多个人遇到这种情况了，目前还没有找到具体原因。
 
-### 解决办法
-
-11月中安装的10.12.1系统，使用期间直接升级到10.12.2用了半个月，到12月30日崩溃了，我已经没有解决办法，很沮丧，各位都时刻准备好TimeMachine吧，祝你好运！
+我11月中安装的10.12.1系统，使用期间直接升级到10.12.2用了半个月，到12月30日崩溃了，很沮丧，各位都时刻准备好TimeMachine吧，祝你好运！
 
 
 ## 特别鸣谢
