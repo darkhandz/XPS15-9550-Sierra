@@ -12,7 +12,7 @@
 
 ### 存在的问题：
 
-- 深度睡眠唤醒后有可能会导致系统分区崩溃，必须重装系统或者从备份还原，据观察，有部分人会遇到，很不幸我就是其中一位。
+- NVMe SSD做系统盘的，深度睡眠唤醒后有可能会导致系统分区崩溃，必须重装系统或者从备份还原，据观察，有部分人会遇到，很不幸我就是其中一位。
 - USB3.1和Thunderbolt，以及HDMI，我都没有设备测试，可以参考 @corenel 的 [repo](https://github.com/corenel/XPS9550-OSX)，他用 `MacBook9,1` SMBIOS。
 - 触摸板的手势目前还没有10.11.6那么完善，你可以自行测试最新的[VoodooPS2Controller](https://github.com/RehabMan/OS-X-Voodoo-PS2-Controller)或[SmartTouchpad](http://forum.osxlatitude.com/index.php?/topic/1948-elan-focaltech-and-synaptics-smart-touchpad-driver-mac-os-x/)
 - 有时候安装一些第三方驱动之后会导致重启后没有声音（无输入输出设备），不要慌，等1分钟就自动好了的，1分钟后不好的话请重启一次。
@@ -266,7 +266,7 @@ sudo codesign -f -s - /System/Library/Frameworks/CoreDisplay.framework/Versions/
 
 确实有这样的情况，我一共遇到过4次，**`一旦出现，你除了重新安装系统、TimeMachine还原，别无他法`**（如果有，请告诉我，万分感谢！）
 
-- 触发条件：从深度睡眠唤醒，有小几率发生
+- 触发条件：NVMe SSD是系统盘，从深度睡眠唤醒，有小几率发生
 - 情况分为两种：
 	1. 唤醒后打开任何APP都崩溃，只能重启系统。一旦重启，你会卡在Verbose画面，提示读取某些文件出问题。
 	2. 唤醒后直接自动重启或开盖后处于关机状态，需要手动开机，进入Clover画面，只有macOS启动项消失了，其他Recovery HD、Windows等启动项还存在。
