@@ -4,47 +4,6 @@
 <dict>
 	<key>ACPI</key>
 	<dict>
-		<key>#DropTables</key>
-		<array>
-			<dict>
-				<key>Signature</key>
-				<string>MCFG</string>
-			</dict>
-			<dict>
-				<key>Signature</key>
-				<string>DMAR</string>
-			</dict>
-			<dict>
-				<key>Signature</key>
-				<string>SSDT</string>
-				<key>TableId</key>
-				<string>CpuPm</string>
-			</dict>
-			<dict>
-				<key>Signature</key>
-				<string>SSDT</string>
-				<key>TableId</key>
-				<string>Cpu0Cst</string>
-			</dict>
-			<dict>
-				<key>Signature</key>
-				<string>SSDT</string>
-				<key>TableId</key>
-				<string>Cpu0Ist</string>
-			</dict>
-			<dict>
-				<key>Signature</key>
-				<string>SSDT</string>
-				<key>TableId</key>
-				<string>ApCst</string>
-			</dict>
-			<dict>
-				<key>Signature</key>
-				<string>SSDT</string>
-				<key>TableId</key>
-				<string>ApIst</string>
-			</dict>
-		</array>
 		<key>DSDT</key>
 		<dict>
 			<key>Fixes</key>
@@ -172,6 +131,18 @@
 				</dict>
 				<dict>
 					<key>Comment</key>
+					<string>Rename HS12 -&gt; HS92 to avoid the patchmatic error, pair with SSDT-TB.aml</string>
+					<key>Find</key>
+					<data>
+					SFMxMg==
+					</data>
+					<key>Replace</key>
+					<data>
+					SFM5Mg==
+					</data>
+				</dict>
+				<dict>
+					<key>Comment</key>
 					<string>Rename  Method BRT6,2 to BRTX,2, and need add-on  SSDT-BRT6.aml</string>
 					<key>Disabled</key>
 					<false/>
@@ -182,6 +153,20 @@
 					<key>Replace</key>
 					<data>
 					FCBCUlRYAg==
+					</data>
+				</dict>
+				<dict>
+					<key>Comment</key>
+					<string>rename _RMV to XRMV</string>
+					<key>Disabled</key>
+					<false/>
+					<key>Find</key>
+					<data>
+					X1JNVg==
+					</data>
+					<key>Replace</key>
+					<data>
+					WFJNVg==
 					</data>
 				</dict>
 				<dict>
@@ -477,6 +462,12 @@
 			<dict>
 				<key>Signature</key>
 				<string>DMAR</string>
+			</dict>
+			<dict>
+				<key>Signature</key>
+				<string>SSDT</string>
+				<key>TableId</key>
+				<string>xh_rvp10</string>
 			</dict>
 		</array>
 		<key>HaltEnabler</key>
@@ -902,20 +893,34 @@
 			</dict>
 			<dict>
 				<key>Comment</key>
-				<string>change 15 port limit to 26 in XHCI kext (100-series)</string>
+				<string>10.12 fudge USB 3.1 device ID,15b68086 -&gt; 15b58086</string>
 				<key>Disabled</key>
+				<false/>
+				<key>Find</key>
+				<string>30783135623638303836</string>
+				<key>InfoPlistPatch</key>
 				<true/>
+				<key>Name</key>
+				<string>AppleUSBXHCIPCI</string>
+				<key>Replace</key>
+				<string>30783135623538303836</string>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>Bypass ThunderBolt3 SkipEnumeration credit kid2010 implemented by syscl</string>
+				<key>Disabled</key>
+				<false/>
 				<key>Find</key>
 				<data>
-				g710////EA==
+				VUiJ5UFXQVZBVUFUU0iB7DgB
 				</data>
 				<key>MatchOS</key>
 				<string>10.12.x</string>
 				<key>Name</key>
-				<string>AppleUSBXHCIPCI</string>
+				<string>IOThunderboltFamily</string>
 				<key>Replace</key>
 				<data>
-				g710////Gw==
+				VUiJ5THAXcNBVUFUU0iB7DgB
 				</data>
 			</dict>
 		</array>
