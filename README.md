@@ -24,9 +24,8 @@
 ## 各资源目录的作用
 
 - `ALC298(3266)-Info`，声卡相关的节点，LayoutID，ConfigData信息，原始Codec，还有从windows10注册表提取出来的PinConfigData，有需要可以自己拿来修改
-- `CLOVER-Install`，完整的Clover配置（你下载后自己把名字改回Clover），用于安装系统时，也可以用于安装后，差别是Clover-Finish/config.plist去掉了安装系统时所需的nvme的patches
-	- `SSDT.aml`不适合i5，请自行学习[生成CPU变频SSDT](https://github.com/Piker-Alpha/ssdtPRGen.sh)的方法。
-- `Clover-Finish`，安装完系统后的一些配置变化，只有config.plist稍有不同（去掉了NVMe的破解补丁），另外附上了10.12.1的nvme破解驱动（即binary patch后的）
+- `CLOVER-Install`，完整的Clover配置（你下载后自己把名字改回Clover）
+	- `SSDT.aml`，如果你是用mb9,1或mbp13,3，请删除。如果是i5，请自行学习[生成CPU变频SSDT](https://github.com/Piker-Alpha/ssdtPRGen.sh)的方法。
 - `DSDT-HotPatches`，Clover的DSDT/SSDT热补丁dsl源码，可以从[RehabMan主页](https://github.com/RehabMan/OS-X-Clover-Laptop-Config/tree/master/hotpatch)得到。
 	- `SSDT-NVMe.dsl`不可以直接使用，请按最后面的NVMe教程处理过才用，或者干脆不用！
 - `MoreKexts-LE`，安装好系统后再安装的第三方驱动。
@@ -99,7 +98,7 @@ sudo codesign -f -s - /System/Library/Frameworks/CoreDisplay.framework/Versions/
 - 然后把config.plist的Devices下的FakeID整个删除（如果是用Clover Configurator配置，把IntelGFX框清空）。
 
 
-#### 6. 给NVME驱动打补丁
+#### 6. 给NVME驱动打补丁（本步骤请略过，已做好了共存）
 
 > RehabMan大神在[NVME-patch的github主页](https://github.com/RehabMan/patch-nvme)强调过，用Clover给Kext驱动动态打补丁还是有点危险的（特指nvme驱动的情况下），如果你的OSX系统更新了，原生的NVME驱动随之更新，然后Clover打补丁的时候不一定能完全匹配到所有补丁（因为补丁是有版本针对性的），造成“部分补丁成功”的情况，糟糕的是，OSX系统还加载了这个半成品驱动……引发的后果是，你的磁盘数据可以会被损坏……  
 
