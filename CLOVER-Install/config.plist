@@ -469,6 +469,42 @@
 				<key>TableId</key>
 				<string>xh_rvp10</string>
 			</dict>
+			<dict>		 			
+				<key>Signature</key>	
+				<string>SSDT</string>	
+				<key>TableId</key>		 
+				<string>Ther_Rvp</string>
+			</dict>		 				
+			<dict>		 				
+				<key>Signature</key>	
+				<string>SSDT</string>	
+				<key>TableId</key>		 
+				<string>CpuSsdt</string>
+			</dict>		 				
+			<dict>		 				
+				<key>Signature</key>	
+				<string>SSDT</string>	
+				<key>TableId</key>		 
+				<string>Cpu0Ist</string>
+			</dict>		 				
+			<dict>		 				
+				<key>Signature</key>	
+				<string>SSDT</string>	
+				<key>TableId</key>		 
+				<string>ApIst</string>	
+			</dict>		 				
+			<dict>		 				
+				<key>Signature</key>	
+				<string>SSDT</string>	
+				<key>TableId</key>		 
+				<string>Cpu0Cst</string>
+			</dict>		 				
+			<dict>		 				
+				<key>Signature</key>	
+				<string>SSDT</string>	
+				<key>TableId</key>		 
+				<string>ApCst</string>	
+			</dict>
 		</array>
 		<key>HaltEnabler</key>
 		<false/>
@@ -508,6 +544,8 @@
 	</dict>
 	<key>CPU</key>
 	<dict>
+		<key>HWPEnable</key>
+		<true/>
 		<key>UseARTFrequency</key>
 		<false/>
 	</dict>
@@ -679,6 +717,21 @@
 		<true/>
 		<key>KernelPm</key>
 		<true/>
+		<key>KernelToPatch</key>
+		<array>
+			<dict>
+				<key>Comment</key>
+				<string>MSR 0xE2 _xcpm_idle instant reboot(c) Pike R. Alpha</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Find</key>
+				<data>ILniAAAADzA=</data>
+				<key>MatchOS</key>
+				<string>10.12</string>
+				<key>Replace</key>
+				<data>ILniAAAAkJA=</data>
+			</dict>
+		</array>
 		<key>KextsToPatch</key>
 		<array>
 			<dict>
