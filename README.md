@@ -10,24 +10,21 @@
 
 测试可以直接升级BIOS，而不需要修改任何热补丁，换言之，以往升级BIOS后需要重新提取DSDT修改的工作，在这里可以全免。
 
+Clover采用r4003版本。
+
 ### 存在的问题：
 
 - NVMe SSD做系统盘的，深度睡眠唤醒后有可能会导致系统分区崩溃，必须重装系统或者从备份还原，据观察，有部分人会遇到，很不幸我就是其中一位。
-- USB3.1和Thunderbolt，以及HDMI，我都没有设备测试，可以参考 @corenel 的 [repo](https://github.com/corenel/XPS9550-OSX)，他用 `MacBook9,1` SMBIOS。
-- 触摸板的手势目前还没有10.11.6那么完善，你可以自行测试最新的[VoodooPS2Controller](https://github.com/RehabMan/OS-X-Voodoo-PS2-Controller)或[SmartTouchpad](http://forum.osxlatitude.com/index.php?/topic/1948-elan-focaltech-and-synaptics-smart-touchpad-driver-mac-os-x/)
-- 有时候安装一些第三方驱动之后会导致重启后没有声音（无输入输出设备），不要慌，等1分钟就自动好了的，1分钟后不好的话请重启一次。
-- 如果不安装CodecCommander+SSDT-ALC298.aml，耳机会存在单声道问题，如果安装CodecCommander+SSDT-ALC298.aml，唤醒后可能会无声，必须拔插一下耳机才可以恢复声音。
+- USB3.1和Thunderbolt，以及HDMI，我都没有设备测试。
+- 触摸板你可以自行测试最新的[VoodooPS2Controller](https://github.com/RehabMan/OS-X-Voodoo-PS2-Controller)或[SmartTouchpad](http://forum.osxlatitude.com/index.php?/topic/1948-elan-focaltech-and-synaptics-smart-touchpad-driver-mac-os-x/)，当然，更推荐的是 @syscl [定制过手势的VoodooPS2Controller](https://github.com/syscl/OS-X-Voodoo-PS2-Controller)。
 - 读卡器就不要妄想了…………
-- 重启后亮度不能保存的问题，测试安装`Clover v3899 + 选择EmuVariable-Uefi64.efi + 选择RCScripts`可以正确保存。
-- DELL的`XPS_9550_1.2.18`BIOS更新只解决了`第三格亮度`的闪屏问题，并没有解决更低亮度的闪屏问题（正确来说，DELL已经修正了Windows下最低亮度闪屏的问题，但是我们的黑苹果开启了比Windows更低的亮度值导致的闪屏）。
+- 如果你的4K屏在唤醒后有什么白色线条的话，这个大家说是DELL的问题，等BIOS更新解决吧。
 
 ## 各资源目录的作用
 
 - `ALC298(3266)-Info`，声卡相关的节点，LayoutID，ConfigData信息，原始Codec，还有从windows10注册表提取出来的PinConfigData，有需要可以自己拿来修改
-- `CLOVER-Install`，完整的Clover配置（你下载后自己把名字改回Clover）
-	- `SSDT.aml`，如果你是用mb9,1或mbp13,3，请删除。如果是i5，请自行学习[生成CPU变频SSDT](https://github.com/Piker-Alpha/ssdtPRGen.sh)的方法。
+- `CLOVER-Install`，完整的Clover配置（你下载后自己把名字改回Clover），根据你的需要进行修改。
 - `DSDT-HotPatches`，Clover的DSDT/SSDT热补丁dsl源码，可以从[RehabMan主页](https://github.com/RehabMan/OS-X-Clover-Laptop-Config/tree/master/hotpatch)得到。
-	- `SSDT-NVMe.dsl`不可以直接使用，请按最后面的NVMe教程处理过才用，或者干脆不用！
 - `MoreKexts-LE`，安装好系统后再安装的第三方驱动。
 - 如果你需要修改声卡Layout-ID，请在`SSDT-Config.dsl`修改`Name(AUDL, 你的id十进制)`，然后编译成aml，放回`ACPI/patched`
 
@@ -130,6 +127,17 @@ sudo codesign -f -s - /System/Library/Frameworks/CoreDisplay.framework/Versions/
 - 终端执行`sudo rm /Library/Preferences/SystemConfiguration/NetworkInterfaces.plist`
 - 系统偏好设置——Language & Region，添加简体中文，Restart now（重启）。
 - 等系统重启完了，点击右上角的WiFi图标，选择最后一项，按顺序重新添加**以太网**，**Wi-Fi**，应用。蓝牙可以不添加，之后自动会加的。
+
+#### 8. 如果你经常开机或者唤醒无声
+
+很多人反映大概率遇到开机无声或者唤醒无声，这里提供另外一个声音方案，也是我目前在用的，唤醒后，耳机还是会有些问题，但总体还是比较好的。
+
+1. 移除aDummy.kext，移除ACPI/patched/SSDT-ALC298.aml
+2. 把我提供的`AppleHDA.kext_mod_10.12.3.zip`解压得到`AppleHDA.kext`，把系统原来的/S/L/E下的AppleHDA.kext备份，把我提供的覆盖到/S/L/E/，重建缓存。
+3. 确保你有安装`CodecCommander.kext`，然后把`alc_fix.zip`解压，执行命令：
+    - cd alc_fix
+    - chmod +x install.sh
+    - ./install.sh
 
 ## 结束
 
