@@ -3,8 +3,7 @@
 
 DefinitionBlock("", "SSDT", 2, "hack", "DIDLE", 0)
 {
-    External(_SB.PCI0, DeviceObj)
-    Scope (\_SB.PCI0)
+    Scope (\_SB)
     {
         Method (LPS0, 0, NotSerialized)
         {
