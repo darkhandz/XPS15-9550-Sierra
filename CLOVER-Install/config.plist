@@ -840,7 +840,7 @@
 				AEFQUExFIFNTRAA=
 				</data>
 				<key>Name</key>
-				<string>IOAHCIBlockStorage</string>
+				<string>com.apple.iokit.IOAHCIBlockStorage</string>
 				<key>Replace</key>
 				<data>
 				AAAAAAAAAAAAAAA=
@@ -856,7 +856,7 @@
 				AAAIAAIAAACYAAAAAQUJAAAEAAA=
 				</data>
 				<key>Name</key>
-				<string>AppleIntelSKLGraphicsFramebuffer</string>
+				<string>com.apple.driver.AppleIntelSKLGraphicsFramebuffer</string>
 				<key>Replace</key>
 				<data>
 				AAAIAAAEAACYAAAAAQUJAAAEAAA=
