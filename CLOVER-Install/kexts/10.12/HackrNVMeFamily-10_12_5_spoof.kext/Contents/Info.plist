@@ -31,17 +31,17 @@
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
-	<string>8R174l</string>
+	<string>8V109d</string>
 	<key>DTPlatformVersion</key>
 	<string>GM</string>
 	<key>DTSDKBuild</key>
-	<string>16B2655</string>
+	<string>16F61</string>
 	<key>DTSDKName</key>
 	<string>macosx10.12internal</string>
 	<key>DTXcode</key>
-	<string>0800</string>
+	<string>0830</string>
 	<key>DTXcodeBuild</key>
-	<string>8R174l</string>
+	<string>8V109d</string>
 	<key>IOKitPersonalities</key>
 	<dict>
 		<key>GenericNVMeSSD</key>
