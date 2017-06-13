@@ -71,6 +71,44 @@
 				</dict>
 				<dict>
 					<key>Comment</key>
+					<string>Change H_EC to EC</string>
+					<key>Find</key>
+					<data>
+					SF9FQw==
+					</data>
+					<key>Replace</key>
+					<data>
+					RUNfXw==
+					</data>
+				</dict>
+				<dict>
+					<key>Comment</key>
+					<string>change EC0 to EC</string>
+					<key>Find</key>
+					<data>
+					RUMwXw==
+					</data>
+					<key>Replace</key>
+					<data>
+					RUNfXw==
+					</data>
+				</dict>
+				<dict>
+					<key>Comment</key>
+					<string>change ECDV to EC</string>
+					<key>Disabled</key>
+					<false/>
+					<key>Find</key>
+					<data>
+					RUNEVg==
+					</data>
+					<key>Replace</key>
+					<data>
+					RUNfXw==
+					</data>
+				</dict>
+				<dict>
+					<key>Comment</key>
 					<string>Device AC rename to ADP1  pair with SSDT-ADP1 - credit syscl</string>
 					<key>Find</key>
 					<data>
