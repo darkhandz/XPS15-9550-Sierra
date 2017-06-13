@@ -782,7 +782,9 @@
 		<array>
 			<dict>
 				<key>Comment</key>
-				<string>AppleHDA#2</string>
+				<string>AppleHDA</string>
+				<key>Disabled</key>
+				<true/>
 				<key>Find</key>
 				<data>
 				QcYGAEiLu2g=
@@ -796,7 +798,9 @@
 			</dict>
 			<dict>
 				<key>Comment</key>
-				<string>AppleHDA#3</string>
+				<string>AppleHDA</string>
+				<key>Disabled</key>
+				<true/>
 				<key>Find</key>
 				<data>
 				QcaGQwEAAAA=
@@ -810,7 +814,9 @@
 			</dict>
 			<dict>
 				<key>Comment</key>
-				<string>AppleHDA#4</string>
+				<string>AppleHDA</string>
+				<key>Disabled</key>
+				<true/>
 				<key>Find</key>
 				<data>
 				hQjsEA==
@@ -824,7 +830,9 @@
 			</dict>
 			<dict>
 				<key>Comment</key>
-				<string>AppleHDA#6</string>
+				<string>AppleHDA</string>
+				<key>Disabled</key>
+				<true/>
 				<key>Find</key>
 				<data>
 				hBnUEQ==
