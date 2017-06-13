@@ -557,20 +557,30 @@
 				<key>Device</key>
 				<string>IntelGFX</string>
 				<key>Key</key>
-				<string>AAPL00,PanelPowerUp</string>
+				<string>AAPL,Gfx324</string>
 				<key>Value</key>
 				<data>
-				MAAAAA==
+				AQAAAA==
 				</data>
 			</dict>
 			<dict>
 				<key>Device</key>
 				<string>IntelGFX</string>
 				<key>Key</key>
-				<string>AAPL,Gfx324</string>
+				<string>AAPL,GfxYTile</string>
 				<key>Value</key>
 				<data>
 				AQAAAA==
+				</data>
+			</dict>
+			<dict>
+				<key>Device</key>
+				<string>IntelGFX</string>
+				<key>Key</key>
+				<string>AAPL00,PanelCycleDelay</string>
+				<key>Value</key>
+				<data>
+				+gAAAA==
 				</data>
 			</dict>
 			<dict>
@@ -597,16 +607,6 @@
 				<key>Device</key>
 				<string>IntelGFX</string>
 				<key>Key</key>
-				<string>AAPL00,PanelCycleDelay</string>
-				<key>Value</key>
-				<data>
-				+gAAAA==
-				</data>
-			</dict>
-			<dict>
-				<key>Device</key>
-				<string>IntelGFX</string>
-				<key>Key</key>
 				<string>AAPL00,PanelPowerOn</string>
 				<key>Value</key>
 				<data>
@@ -617,21 +617,29 @@
 				<key>Device</key>
 				<string>IntelGFX</string>
 				<key>Key</key>
-				<string>device-colors</string>
+				<string>AAPL00,PanelPowerUp</string>
 				<key>Value</key>
 				<data>
-				AAIAAKCdnQAAAAAAAAAAAA==
+				MAAAAA==
 				</data>
 			</dict>
 			<dict>
 				<key>Device</key>
 				<string>IntelGFX</string>
 				<key>Key</key>
-				<string>AAPL,GfxYTile</string>
+				<string>graphic-options</string>
 				<key>Value</key>
 				<data>
-				AQAAAA==
+				DAAAAA==
 				</data>
+			</dict>
+			<dict>
+				<key>Device</key>
+				<string>IntelGFX</string>
+				<key>Key</key>
+				<string>hda-gfx</string>
+				<key>Value</key>
+				<string>onboard-1</string>
 			</dict>
 		</array>
 		<key>USB</key>
