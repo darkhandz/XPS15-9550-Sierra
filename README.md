@@ -1,5 +1,9 @@
 ## 前言
 
+> 以下教程已经过时了，可以参考[ @wmchris 的教程](https://github.com/wmchris/DellXPS15-9550-OSX)，很详细。
+
+---
+
 >>这里没有我原创的东西，用到的任何驱动任何方法任何脚本任何命令，都是别人的成果，向作者们致敬，心怀感激。
 
 > 这里讨论的配置是：XPS15-9550 i7-6700HQ HD530 8G-DDR4 1080P THNSN5256GPU7-NVMe-256G DW1830(无线网卡ac+蓝牙4.1LE)  Realtek ALC298 (codec:10EC0298,layout-id:13)
