@@ -572,6 +572,8 @@
 	<dict>
 		<key>HWPEnable</key>
 		<true/>
+		<key>HWPValue</key>
+		<string>0x94002301</string>
 		<key>UseARTFrequency</key>
 		<false/>
 	</dict>
