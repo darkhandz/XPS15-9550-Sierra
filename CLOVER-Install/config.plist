@@ -495,6 +495,18 @@
 				<key>TableId</key>
 				<string>xh_rvp10</string>
 			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>http://www.insanelymac.com/forum/topic/324194-pre-release-macos-high-sierra/page-38#entry2441580</string>
+				<key>Signature</key>
+				<string>MATS</string>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>the reason same as MATS</string>
+				<key>Signature</key>
+				<string>BGRT</string>
+			</dict>
 		</array>
 		<key>HaltEnabler</key>
 		<false/>
@@ -729,7 +741,7 @@
 				ILniAAAADzA=
 				</data>
 				<key>MatchOS</key>
-				<string>10.12</string>
+				<string>10.12.x,10.13.x</string>
 				<key>Replace</key>
 				<data>
 				ILniAAAAkJA=
@@ -878,11 +890,11 @@
 	<key>SMBIOS</key>
 	<dict>
 		<key>BiosReleaseDate</key>
-		<string>12/22/2016</string>
+		<string>04/29/2017</string>
 		<key>BiosVendor</key>
 		<string>Apple Inc.</string>
 		<key>BiosVersion</key>
-		<string>MBP133.88Z.0226.B11.1612220123</string>
+		<string>MBP133.88Z.0226.B24.1704292117</string>
 		<key>Board-ID</key>
 		<string>Mac-A5C67F76ED83108C</string>
 		<key>BoardManufacturer</key>
