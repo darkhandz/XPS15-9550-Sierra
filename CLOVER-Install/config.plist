@@ -495,42 +495,6 @@
 				<key>TableId</key>
 				<string>xh_rvp10</string>
 			</dict>
-			<dict>		 			
-				<key>Signature</key>	
-				<string>SSDT</string>	
-				<key>TableId</key>		 
-				<string>Ther_Rvp</string>
-			</dict>		 				
-			<dict>		 				
-				<key>Signature</key>	
-				<string>SSDT</string>	
-				<key>TableId</key>		 
-				<string>CpuSsdt</string>
-			</dict>		 				
-			<dict>		 				
-				<key>Signature</key>	
-				<string>SSDT</string>	
-				<key>TableId</key>		 
-				<string>Cpu0Ist</string>
-			</dict>		 				
-			<dict>		 				
-				<key>Signature</key>	
-				<string>SSDT</string>	
-				<key>TableId</key>		 
-				<string>ApIst</string>	
-			</dict>		 				
-			<dict>		 				
-				<key>Signature</key>	
-				<string>SSDT</string>	
-				<key>TableId</key>		 
-				<string>Cpu0Cst</string>
-			</dict>		 				
-			<dict>		 				
-				<key>Signature</key>	
-				<string>SSDT</string>	
-				<key>TableId</key>		 
-				<string>ApCst</string>	
-			</dict>
 		</array>
 		<key>HaltEnabler</key>
 		<false/>
@@ -761,11 +725,15 @@
 				<key>Disabled</key>
 				<false/>
 				<key>Find</key>
-				<data>ILniAAAADzA=</data>
+				<data>
+				ILniAAAADzA=
+				</data>
 				<key>MatchOS</key>
 				<string>10.12</string>
 				<key>Replace</key>
-				<data>ILniAAAAkJA=</data>
+				<data>
+				ILniAAAAkJA=
+				</data>
 			</dict>
 		</array>
 		<key>KextsToPatch</key>
