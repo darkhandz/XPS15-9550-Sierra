@@ -472,7 +472,7 @@
 					<key>CodecID</key>
 					<integer>283902549</integer>
 					<key>ConfigData</key>
-					<data>ASccEAEnHQABJx6mAScfkAFHHCABRx0AAUceFwFHH5ABdxwwAXcdAAF3HgABdx9AAdccQAHXHQAB1x5wAdcfQAIXHFACFx0QAhceIQIXHwIBRwwC</data>
+					<data>AbccIAG3HQABtx6gAbcfkAFHHDABRx0AAUceFwFHH5ACFxxQAhcdEAIXHiECFx8AAUcMAgIXDAI=</data>
 					<key>FuncGroup</key>
 					<integer>1</integer>
 					<key>LayoutID</key>
@@ -491,6 +491,20 @@
 					<integer>1</integer>
 					<key>LayoutID</key>
 					<integer>17</integer>
+				</dict>
+				<dict>
+					<key>AFGLowPowerState</key>
+					<data>AwAAAA==</data>
+					<key>Codec</key>
+					<string>ALC255 for Asus X556UA m-dudarev</string>
+					<key>CodecID</key>
+					<integer>283902549</integer>
+					<key>ConfigData</key>
+					<data>AUccEAFHHQEBRx4XAUcfkAGXHCABlx0QAZcegQGXHwQCFxwgAhcdEAIXHiECFx8EAbccMAG3HQEBtx6gAbcfkAFHDAI=</data>
+					<key>FuncGroup</key>
+					<integer>1</integer>
+					<key>LayoutID</key>
+					<integer>27</integer>
 				</dict>
 				<dict>
 					<key>AFGLowPowerState</key>
@@ -1121,6 +1135,20 @@
 				<dict>
 					<key>AFGLowPowerState</key>
 					<data>AwAAAA==</data>
+					<key>Codec</key>
+					<string>InsanelyDeepak - Realtek ALC282</string>
+					<key>CodecID</key>
+					<integer>283902594</integer>
+					<key>ConfigData</key>
+					<data>ASccQAEnHQABJx6gAScfkAFHHBABRx0AAUceFwFHH5ABhxwwAYcdEAGHHoEBhx8AAeccIAHnHRAB5x5EAecfAAIXHFACFx0QAhceIQIXHwABRwwC</data>
+					<key>FuncGroup</key>
+					<integer>1</integer>
+					<key>LayoutID</key>
+					<integer>13</integer>
+				</dict>
+				<dict>
+					<key>AFGLowPowerState</key>
+					<data>AwAAAA==</data>
 					<key>CodecID</key>
 					<integer>283902594</integer>
 					<key>Comment</key>
@@ -1388,6 +1416,20 @@
 					<key>AFGLowPowerState</key>
 					<data>AwAAAA==</data>
 					<key>Codec</key>
+					<string>Mirone - Realtek ALC295/ALC3254</string>
+					<key>CodecID</key>
+					<integer>283902613</integer>
+					<key>ConfigData</key>
+					<data>ASccEAEnHQABJx6mAScfmQF3HCABdx0AAXceFwF3H5kBlxwwAZcdEAGXHoEBlx8CAhccQAIXHRACFx4hAhcfAgF3DAIBRwwCAhcMAg==</data>
+					<key>FuncGroup</key>
+					<integer>1</integer>
+					<key>LayoutID</key>
+					<integer>3</integer>
+				</dict>
+				<dict>
+					<key>AFGLowPowerState</key>
+					<data>AwAAAA==</data>
+					<key>Codec</key>
 					<string>vusun123 - ALC 295 for Skylake HP Pavilion</string>
 					<key>CodecID</key>
 					<integer>283902613</integer>
@@ -1420,7 +1462,7 @@
 					<key>CodecID</key>
 					<integer>283902616</integer>
 					<key>ConfigData</key>
-					<data>ASccEAEnHQEBJx6mAScfkAF3HCABdx0BAXceFwF3H5ACFxxAAhcdEAIXHisCFx8AAXcMAg==</data>
+					<data>AXccEAF3HQABdx4XAXcfkAEnHCABJx0AASceoAEnH5ACFxwwAhcdEAIXHiECFx8CAYccQAGHHRABhx6BAYcfAgFHDAICFwwC</data>
 					<key>FuncGroup</key>
 					<integer>1</integer>
 					<key>LayoutID</key>
@@ -1439,6 +1481,20 @@
 					<integer>1</integer>
 					<key>LayoutID</key>
 					<integer>28</integer>
+				</dict>
+				<dict>
+					<key>AFGLowPowerState</key>
+					<data>AwAAAA==</data>
+					<key>Codec</key>
+					<string>Custom - Realtek ALC298 for Dell XPS 9560 by KNNSpeed</string>
+					<key>CodecID</key>
+					<integer>283902616</integer>
+					<key>ConfigData</key>
+					<data>ASccEAEnHQEBJx6mAScfkAF3HCABdx0BAXceFwF3H5ABhxwwAYcdEAGHHqsBhx8DAaccQAGnHRABpx6LAacfAwIXHFACFx0QAhceKwIXHwMBRwwCAXcMAgGnDAICFwwC</data>
+					<key>FuncGroup</key>
+					<integer>1</integer>
+					<key>LayoutID</key>
+					<integer>72</integer>
 				</dict>
 				<dict>
 					<key>AFGLowPowerState</key>
@@ -2707,6 +2763,20 @@
 					<integer>1</integer>
 					<key>LayoutID</key>
 					<integer>3</integer>
+				</dict>
+				<dict>
+					<key>AFGLowPowerState</key>
+					<data>AwAAAA==</data>
+					<key>Codec</key>
+					<string>InsanelyDeepak - Conexant CX20756</string>
+					<key>CodecID</key>
+					<integer>351359247</integer>
+					<key>ConfigData</key>
+					<data>AXccEAF3HQEBdx4XAXcfkAGnHCABpx0BAaceoAGnH5ABlxwwAZcdEAGXHosBlx8CAWccQAFnHRABZx4rAWcfAgGHHPABhx0AAYceAAGHH0A=</data>
+					<key>FuncGroup</key>
+					<integer>1</integer>
+					<key>LayoutID</key>
+					<integer>13</integer>
 				</dict>
 				<dict>
 					<key>AFGLowPowerState</key>
